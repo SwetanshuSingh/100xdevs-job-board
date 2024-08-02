@@ -3,12 +3,11 @@ import { signIn } from "@/auth";
 
 type LoginActionProps = {
   email: string;
+  password: string;
 };
 
-export const loginUser = async ({ email }: LoginActionProps) => {
+export const loginUser = async ({ email, password }: LoginActionProps) => {
   try {
-    await signIn("resend", { email });
-  } catch (error) {
-    console.log(error);
-  }
+    await signIn("credentials", { email, password, redirect: false });
+  } catch (error) {}
 };
