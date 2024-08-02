@@ -3,12 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "../ui/use-toast";
 import { useState } from "react";
+import { loginUser } from "@/actions/user";
 
 const LoginForm = () => {
   const { toast } = useToast();
   const [inputValue, setInputValue] = useState("");
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (!inputValue || inputValue === "") {
       toast({
         title: "Email cannot be empty!",
@@ -16,6 +17,8 @@ const LoginForm = () => {
       });
       return;
     }
+
+    const res = await loginUser({ email: inputValue });
   };
 
   return (
