@@ -19,7 +19,7 @@ const Navbar = ({ session }: NavbarProps) => {
     if (response?.status !== "success") {
       toast({
         variant: "destructive",
-        title: response.message,
+        title: response?.message,
       });
       return;
     }

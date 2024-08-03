@@ -62,7 +62,10 @@ const LoginForm = () => {
 
       <form
         className="h-full flex flex-col items-center gap-3"
-        action={handleClick}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleClick();
+        }}
       >
         <Input
           value={email}
@@ -85,7 +88,7 @@ const LoginForm = () => {
           className="w-full flex justify-center items-center rounded-lg"
         >
           {isLoading ? (
-            <Loader2 size={20} className="animate-spin" />
+            <Loader2 size={20} className="animate-spin " />
           ) : (
             "Sign In"
           )}
