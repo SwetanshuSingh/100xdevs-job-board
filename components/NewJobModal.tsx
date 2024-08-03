@@ -1,3 +1,4 @@
+"use client"
 import {
   Dialog,
   DialogContent,
@@ -8,10 +9,15 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
 import NewJobForm from "./forms/NewJobForm";
+import { useState } from "react";
+
 
 const NewJobModal = () => {
+
+  const [open, setOpen] = useState(false);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>Create Job</Button>
       </DialogTrigger>
@@ -23,7 +29,7 @@ const NewJobModal = () => {
             job
           </DialogDescription>
         </DialogHeader>
-        <NewJobForm />
+        <NewJobForm setOpen={setOpen} />
       </DialogContent>
     </Dialog>
   );
