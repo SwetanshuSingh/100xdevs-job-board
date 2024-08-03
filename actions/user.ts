@@ -2,6 +2,7 @@
 import { signIn, signOut } from "@/auth";
 import { userLoginSchema } from "@/zod/user";
 import { prisma } from "@/lib/db";
+import { LoginAction, SAPayload } from "@/types";
 
 export const loginUser = async (
   credentials: LoginAction
@@ -33,6 +34,11 @@ export const loginUser = async (
   }
 };
 
-export const logOutUser = async () => {
-  await signOut();
+export const logOutUser = async (): Promise<SAPayload> => {
+  try {
+    await signOut({ redirect: false });
+    return { status: "success", message: "Logout Successful" };
+  } catch (error) {
+    return { status: "error", message: "Internal Server Error" };
+  }
 };

@@ -37,7 +37,7 @@ const LoginForm = () => {
     const credentials = { email, password };
     const response = await loginUser(credentials);
 
-    if (response.status !== "success") {
+    if (response?.status !== "success") {
       toast({
         title: response.message,
         variant: "destructive",

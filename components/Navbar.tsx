@@ -3,15 +3,32 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { logOutUser } from "@/actions/user";
 import { Session } from "next-auth";
+import { toast } from "./ui/use-toast";
+import { useRouter } from "next/navigation";
 
 type NavbarProps = {
   session: Session | null;
 };
 
 const Navbar = ({ session }: NavbarProps) => {
+  const router = useRouter();
+
   const handleSignOut = async () => {
-    await logOutUser();
+    const response = await logOutUser();
+
+    if (response?.status !== "success") {
+      toast({
+        variant: "destructive",
+        title: response.message,
+      });
+      return;
+    }
+
+    router.push("/");
+    router.refresh();
   };
+
+  const userRole = session?.user.role;
 
   return (
     <nav className="w-3/6 flex items-center justify-between h-14 border-t shadow border-gray-150 rounded-lg px-3 transition-all backdrop-blur-lg bg-background/50">
@@ -28,6 +45,12 @@ const Navbar = ({ session }: NavbarProps) => {
           <Link href="/jobs">
             <p className="cursor-pointer hover:text-gray-900">Explore</p>
           </Link>
+
+          {userRole === "ADMIN" ? (
+            <Link href="/jobs">
+              <p className="cursor-pointer hover:text-gray-900">Manage</p>
+            </Link>
+          ) : null}
         </div>
       </div>
 
