@@ -1,5 +1,5 @@
 "use server";
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
 import { userLoginSchema } from "@/zod/user";
 import { prisma } from "@/lib/db";
 
@@ -31,4 +31,8 @@ export const loginUser = async (
   } catch (error) {
     return { status: "error", message: "Internal Server Error" };
   }
+};
+
+export const logOutUser = async () => {
+  await signOut();
 };
