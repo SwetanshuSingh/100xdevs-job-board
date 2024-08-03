@@ -9,7 +9,6 @@ type MainLayoutProps = {
 
 const MainLayout = async ({ children }: MainLayoutProps) => {
   const session = await auth();
-  console.log(session?.user)
 
   return (
     <div className="w-full min-h-screen flex flex-col gap-4 items-center pt-4 pb-20">
