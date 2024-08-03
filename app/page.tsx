@@ -17,7 +17,7 @@ const HomePage = async () => {
             100xJobs
           </h1>
           <p className="lg:text-xl text-center text-slate-700/90 font-bold tracking-loose">
-            India's most rapidly growing developer community.
+            India&apos;s most rapidly growing developer community
           </p>
         </section>
         <Footer />

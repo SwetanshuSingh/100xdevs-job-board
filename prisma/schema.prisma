@@ -73,7 +73,7 @@ model Job {
   title       String
   description String
   companyName String   @map("company_name")
-  salary      Int
+  salary      String
   currency    Currency @default(INR)
   jobType     JobType  @map("job_type")
   state       String?
