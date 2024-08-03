@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import NewJobModal from "@/components/NewJobModal";
 import { redirect } from "next/navigation";
 
 const ManageJobsPage = async () => {
@@ -11,8 +12,8 @@ const ManageJobsPage = async () => {
     }
 
     return (
-        <div className="w-full flex-grow p-2">
-            <h2>Manage Jobs</h2>
+        <div className="w-full flex-grow flex justify-center items-center p-2">
+            <NewJobModal />
         </div>
     )
 }

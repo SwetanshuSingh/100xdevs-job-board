@@ -18,9 +18,6 @@ const JobsPage = () => {
           <JobCard />
           <JobCard />
           <JobCard />
-          <JobCard />
-          <JobCard />
-          <JobCard />
         </div>
       </section>
     </section>

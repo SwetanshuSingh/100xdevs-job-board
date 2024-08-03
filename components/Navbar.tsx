@@ -47,7 +47,7 @@ const Navbar = ({ session }: NavbarProps) => {
           </Link>
 
           {userRole === "ADMIN" ? (
-            <Link href="/jobs/create">
+            <Link href="/jobs/manage">
               <p className="cursor-pointer hover:text-gray-900">Manage</p>
             </Link>
           ) : null}

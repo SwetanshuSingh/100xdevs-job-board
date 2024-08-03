@@ -53,6 +53,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  jobs          Job[]
 
   @@map("users")
 }
@@ -66,7 +67,33 @@ model VerificationToken {
   @@map("verificationtokens")
 }
 
+model Job {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  description String
+  companyName String   @map("company_name")
+  salary      Int
+  currency    Currency @default(INR)
+  jobType     JobType  @map("job_type")
+  state       String?
+  country     String?
+
+  user User @relation(fields: [userId], references: [id])
+}
+
 enum Role {
   ADMIN
   USER
+}
+
+enum Currency {
+  INR
+  USD
+}
+
+enum JobType {
+  REMOTE
+  HYBIRD
+  OFFICE
 }
