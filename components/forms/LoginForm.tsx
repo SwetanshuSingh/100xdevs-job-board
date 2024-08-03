@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "../ui/use-toast";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { loginUser } from "@/actions/user";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
@@ -14,7 +14,8 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleClick = async () => {
+  const handleClick = async (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
     setIsLoading(true);
     if (!email || email === "") {
       toast({
@@ -50,8 +51,8 @@ const LoginForm = () => {
       title: response.message,
       variant: "default",
     });
-    setIsLoading(false);
     router.push("/jobs");
+    setIsLoading(false);
   };
 
   return (
@@ -62,10 +63,7 @@ const LoginForm = () => {
 
       <form
         className="h-full flex flex-col items-center gap-3"
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleClick();
-        }}
+        onSubmit={(evt) => handleClick(evt)}
       >
         <Input
           value={email}
