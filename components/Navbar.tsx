@@ -1,12 +1,14 @@
 "use client";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { usePathname } from "next/navigation";
 import { logOutUser } from "@/actions/user";
+import { Session } from "next-auth";
 
-const Navbar = () => {
-  const pathName = usePathname();
+type NavbarProps = {
+  session: Session | null;
+};
 
+const Navbar = ({ session }: NavbarProps) => {
   const handleSignOut = async () => {
     await logOutUser();
   };
@@ -29,13 +31,11 @@ const Navbar = () => {
         </div>
       </div>
 
-      {pathName !== "/login" && pathName !== "/jobs" ? (
+      {!session ? (
         <Link href="/login">
           <Button className="font-medium">Join Now</Button>
         </Link>
-      ) : null}
-
-      {pathName === "/jobs" ? (
+      ) : (
         <Button
           onClick={handleSignOut}
           variant="outline"
@@ -43,7 +43,7 @@ const Navbar = () => {
         >
           Sign Out
         </Button>
-      ) : null}
+      )}
     </nav>
   );
 };
