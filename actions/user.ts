@@ -1,13 +1,34 @@
 "use server";
 import { signIn } from "@/auth";
+import { userLoginSchema } from "@/zod/user";
+import { prisma } from "@/lib/db";
 
-type LoginActionProps = {
-  email: string;
-  password: string;
-};
+export const loginUser = async (
+  credentials: LoginAction
+): Promise<SAPayload> => {
+  const isValidated = await userLoginSchema.safeParseAsync(credentials);
 
-export const loginUser = async ({ email, password }: LoginActionProps) => {
+  if (!isValidated.success) {
+    return { status: "error", message: "Invalid Credentials" };
+  }
+
+  const { email, password } = isValidated.data;
+
   try {
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (!existingUser) {
+      return { status: "error", message: "User does not Exists" };
+    }
+
     await signIn("credentials", { email, password, redirect: false });
-  } catch (error) {}
+
+    return { status: "success", message: "Login Successful" };
+  } catch (error) {
+    return { status: "error", message: "Internal Server Error" };
+  }
 };
