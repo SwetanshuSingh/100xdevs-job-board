@@ -75,7 +75,7 @@ model Job {
   companyName String   @map("company_name")
   salary      String
   currency    Currency @default(INR)
-  location    JobType
+  location    String
   state       String?
   country     String?
 

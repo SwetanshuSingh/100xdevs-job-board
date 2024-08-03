@@ -20,8 +20,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { NewJob, newJobSchema } from "@/zod/user";
 import { useToast } from "../ui/use-toast";
+import { createJob } from "@/actions/job";
 
-const NewJobForm = () => {
+type NewJobFormProps = {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const NewJobForm = ({ setOpen }: NewJobFormProps) => {
   const { toast } = useToast();
 
   const form = useForm<NewJob>({
@@ -36,10 +41,8 @@ const NewJobForm = () => {
     },
   });
 
-  const handleFormSubmit = (values: NewJob) => {
+  const handleFormSubmit = async (values: NewJob) => {
     const { currency, location } = values;
-
-    console.log(location)
 
     if (currency !== "USD" && currency !== "INR") {
       toast({
@@ -60,6 +63,23 @@ const NewJobForm = () => {
       });
       return;
     }
+
+    const response = await createJob(values);
+
+    if (response?.status !== "success") {
+      toast({
+        title: response.message,
+        variant: "destructive",
+      });
+      setOpen(false);
+      return;
+    }
+
+    toast({
+      title: response.message,
+      variant: "default",
+    });
+    setOpen(false);
   };
 
   return (
