@@ -31,7 +31,7 @@ const JobsPage = async () => {
         >
           {allJobs &&
             allJobs.map((job) => {
-              return <JobCard job={job} />;
+              return <JobCard key={job.id} job={job} />;
             })}
           {allJobs.length === 0 ? (
             <h3 className="text-2xl font-semibold text-gray-800">
