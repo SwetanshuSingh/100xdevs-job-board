@@ -38,48 +38,51 @@ const NewJobForm = ({ setOpen }: NewJobFormProps) => {
       salary: "",
       currency: "",
       location: "",
+      state: undefined,
+      country: undefined,
     },
   });
 
   const handleFormSubmit = async (values: NewJob) => {
     const { currency, location } = values;
+    console.log(values);
 
-    if (currency !== "USD" && currency !== "INR") {
-      toast({
-        title: "Please select the currency",
-        variant: "destructive",
-      });
-      return;
-    }
+    // if (currency !== "USD" && currency !== "INR") {
+    //   toast({
+    //     title: "Please select the currency",
+    //     variant: "destructive",
+    //   });
+    //   return;
+    // }
 
-    if (
-      location !== "REMOTE" &&
-      location !== "HYBRID" &&
-      location !== "OFFICE"
-    ) {
-      toast({
-        title: "Please select the location",
-        variant: "destructive",
-      });
-      return;
-    }
+    // if (
+    //   location !== "REMOTE" &&
+    //   location !== "HYBRID" &&
+    //   location !== "OFFICE"
+    // ) {
+    //   toast({
+    //     title: "Please select the location",
+    //     variant: "destructive",
+    //   });
+    //   return;
+    // }
 
-    const response = await createJob(values);
+    // const response = await createJob(values);
 
-    if (response?.status !== "success") {
-      toast({
-        title: response.message,
-        variant: "destructive",
-      });
-      setOpen(false);
-      return;
-    }
+    // if (response?.status !== "success") {
+    //   toast({
+    //     title: response.message,
+    //     variant: "destructive",
+    //   });
+    //   setOpen(false);
+    //   return;
+    // }
 
-    toast({
-      title: response.message,
-      variant: "default",
-    });
-    setOpen(false);
+    // toast({
+    //   title: response.message,
+    //   variant: "default",
+    // });
+    // setOpen(false);
   };
 
   return (
@@ -228,6 +231,52 @@ const NewJobForm = ({ setOpen }: NewJobFormProps) => {
                     <SelectItem value="OFFICE">Office</SelectItem>
                   </SelectContent>
                 </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <FormField
+            disabled
+            control={form.control}
+            name="state"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-sm font-semibold text-gray-800">
+                  State
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    className="w-full border-gray-400"
+                    placeholder="Enter state here"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <FormField
+            disabled
+            control={form.control}
+            name="country"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-sm font-semibold text-gray-800">
+                  Country
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    className="w-full border-gray-400"
+                    placeholder="Enter state here"
+                  />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}

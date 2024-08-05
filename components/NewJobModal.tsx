@@ -21,7 +21,7 @@ const NewJobModal = () => {
       <DialogTrigger asChild>
         <Button>Create Job</Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-h-[800px] overflow-y-scroll">
         <DialogHeader>
           <DialogTitle>Enter the Job details below</DialogTitle>
           <DialogDescription>

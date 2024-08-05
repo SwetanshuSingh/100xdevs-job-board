@@ -24,6 +24,8 @@ export const newJobSchema = z.object({
   location: z.string({
     required_error: "Please select one location type",
   }),
+  state: z.string().optional(),
+  country: z.string().optional()
 });
 
 export type LoginUser = z.infer<typeof userLoginSchema>;
